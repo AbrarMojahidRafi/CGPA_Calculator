@@ -1,5 +1,6 @@
 import PySimpleGUI as sg
 import functions
+import future_cgpa_calculate
 
 sg.theme("DarkGreen5")
 
@@ -29,13 +30,17 @@ removeButton = sg.Button("Remove", font=("Arial Bold", 10))
 
 calculate = sg.Button("Calculate the CGPA", font=("Arial Bold", 10))
 
+future_cgpa_calculate_text = sg.Text("Want to know the future CGPA?: ", font=("Arial Bold", 10))
+future_cgpa_calculate_button = sg.Button("Click Here!", font=("Arial Bold", 10))
+
 window = sg.Window("CGPA Calculator",
                    layout=[
                        [enterTheCourseName, courseNameInputBox],
                        [EnterTheCGPAOfThatCourse, CGPAOfThatCourse, creditOfThatCourse, creditOfThatCourseCombo],
                        [retakeText, retakeCombo, addButton],
                        [listBox, editButton, removeButton],
-                       [calculate]
+                       [calculate],
+                       [future_cgpa_calculate_text, future_cgpa_calculate_button]
                    ]
                    )
 
@@ -157,3 +162,5 @@ while True:
             window["creditOfThatCourseCombo"].update(value="3")
         except:
             sg.popup_error('Select one course.')
+    elif cases == "Click Here!":
+        future_cgpa_calculate.new_window_for_future_cgpa_calculate()
