@@ -33,10 +33,18 @@ def calculating_cgpa():
     numerator = 0
     grade = "COURSE || CGPA\n"
     for i in range(1, len(courses)):
-        course, cgpa, credit = courses[i].split(" || ")
+        course, cgpa, credit = None, None, None
+        if len(courses[i].split(" || ")) == 3:
+            course, cgpa, credit = courses[i].split(" || ")
+        elif len(courses[i].split(" || ")) == 4:
+            temp = courses[i].split(" || ")
+            course = temp[0]
+            cgpa = temp[1]
+            credit = temp[2]
         denominator_number_of_credit += int(credit)
-        numerator += (float(cgpa)*int(credit))
+        numerator += (float(cgpa) * int(credit))
         grade = grade + f"{course} || {cgpa}\n"
+
     grade = grade + "--------------------------------------------------\n"
     cg = numerator / denominator_number_of_credit
     grade = grade + f"Your current CGPA:- {cg}\n"

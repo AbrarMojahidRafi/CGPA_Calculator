@@ -89,9 +89,9 @@ while True:
                                             inputValues["creditOfThatCourseCombo"]
                                             )
                 window["list_Box"].update(functions.getting_courses())
-                window['CGPAOfThatCourse'].update(value='')
-                window["creditOfThatCourseCombo"].update(value="3")
-                window["retakeCombo"].update("No")
+            window['CGPAOfThatCourse'].update(value='')
+            window["creditOfThatCourseCombo"].update(value="3")
+            window["retakeCombo"].update("No")
         else:
             functions.adding_retake_course(inputValues["courseNameInputBox"],
                                            inputValues["CGPAOfThatCourse"],
@@ -120,8 +120,8 @@ while True:
                     )
             elif functions.check_credit_is_valid_or_not(inputValues["creditOfThatCourseCombo"]):
                 sg.popup_error('Your credit is not valid.\nValid Credit is 1-10.')
-            elif functions.check_duplicate(inputValues["courseNameInputBox"]):
-                sg.popup_error('This course already in the list.')
+            # elif functions.check_duplicate(inputValues["courseNameInputBox"]):
+            #     sg.popup_error('This course already in the list.')
             else:
                 functions.editing_a_course_or_its_cgpa(
                     inputValues["list_Box"][0],
