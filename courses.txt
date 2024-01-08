@@ -1,0 +1,10 @@
+COURSE || CGPA || CREDIT
+CSE110 || 4.0 || 3
+MAT110 || 4.0 || 3 || Before Retake, CGPA was 3.7
+CSE111 || 4.0 || 3
+CSE260 || 3.7 || 3
+MAT120 || 4.0 || 3
+ENG101 || 2.7 || 3
+CSE220 || 3.7 || 3
+CSE230 || 4.0 || 3 || Before Retake, CGPA was 2.0
+PHY111 || 3.0 || 3
