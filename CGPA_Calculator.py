@@ -1,6 +1,10 @@
 import PySimpleGUI as sg
 import functions
-import future_cgpa_calculate
+import os
+
+if not os.path.exists("todos.txt"):
+    with open("courses.txt", "w") as file:
+        file.write("COURSE || CGPA\n")
 
 sg.theme("DarkGreen5")
 
@@ -23,31 +27,31 @@ addButton = sg.Button("Add", font=("Arial Bold", 10))
 
 with open("courses.txt", "r") as courses:
     listBox = sg.Listbox(courses.readlines(), size=(55, 10), font=("Arial Bold", 10), key="list_Box",
-                         enable_events=True)
+                         enable_events=True, select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED)
 
 editButton = sg.Button("Edit", font=("Arial Bold", 10))
 removeButton = sg.Button("Remove", font=("Arial Bold", 10))
 
-calculate = sg.Button("Calculate the CGPA", font=("Arial Bold", 10))
+guideline = sg.Text("CTRL+CLICK/CLICK --> For SELECTING some/a item; \n"
+                    "CTRL+CLICK --> For UNSELECTING a item.", font=("Arial Bold", 8), text_color="yellow")
 
-future_cgpa_calculate_text = sg.Text("Want to know the future CGPA?: ", font=("Arial Bold", 10))
-future_cgpa_calculate_button = sg.Button("Click Here!", font=("Arial Bold", 10))
+calculate = sg.Button("Calculate the CGPA", font=("Arial Bold", 10))
 
 window = sg.Window("CGPA Calculator",
                    layout=[
                        [enterTheCourseName, courseNameInputBox],
                        [EnterTheCGPAOfThatCourse, CGPAOfThatCourse, creditOfThatCourse, creditOfThatCourseCombo],
                        [retakeText, retakeCombo, addButton],
+                       [guideline],
                        [listBox, editButton, removeButton],
-                       [calculate],
-                       [future_cgpa_calculate_text, future_cgpa_calculate_button]
+                       [calculate]
                    ]
                    )
 
 while True:
     event = window.Read()
     cases, inputValues = event
-    print(event)
+    # print(event)
     if cases == sg.WINDOW_CLOSED:
         break
     if cases == "list_Box":
@@ -76,7 +80,7 @@ while True:
             if functions.check_course_code_present_or_not(inputValues["courseNameInputBox"]):
                 sg.popup_error('Please give the COURSE CODE.')
             elif functions.check_cgpa_is_valid_or_not(inputValues["CGPAOfThatCourse"]):
-                if len(inputValues["""CGPAOfThatCourse"""]) != 0:
+                if len(inputValues["CGPAOfThatCourse"]) != 0:
                     sg.popup_error(
                         f'Please give the CGPA properly of your course.\nYou write "{inputValues["""CGPAOfThatCourse"""]}"'
                     )
@@ -107,7 +111,7 @@ while True:
             window["creditOfThatCourseCombo"].update(value="3")
             window["retakeCombo"].update("No")
     elif cases == "Calculate the CGPA":
-        grade = functions.calculating_cgpa()
+        grade = functions.calculating_cgpa(inputValues["list_Box"])
         sg.popup_scrolled(grade,
                           title="Your grades")
     elif cases == "Edit":
@@ -162,5 +166,3 @@ while True:
             window["creditOfThatCourseCombo"].update(value="3")
         except:
             sg.popup_error('Select one course.')
-    elif cases == "Click Here!":
-        future_cgpa_calculate.new_window_for_future_cgpa_calculate()

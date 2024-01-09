@@ -27,7 +27,7 @@ def adding_retake_course(course_name_input_box, cgpa_of_that_course, credit_of_t
     writing_new_course(courses)
 
 
-def calculating_cgpa():
+def calculating_cgpa_for_all_course():
     courses = getting_courses()
     denominator_number_of_credit = 0
     numerator = 0
@@ -50,6 +50,38 @@ def calculating_cgpa():
     grade = grade + f"Your current CGPA:- {cg}\n"
     grade = grade + f"Total Completed Credit:- {denominator_number_of_credit}"
     return grade
+
+
+def calculating_cgpa_selected_course(list_box_courses):
+    denominator_number_of_credit = 0
+    numerator = 0
+    grade = "COURSE || CGPA\n"
+    for i in range(len(list_box_courses)):
+        if list_box_courses[i] != "COURSE || CGPA\n":
+            course, cgpa, credit = None, None, None
+            if len(list_box_courses[i].split(" || ")) == 3:
+                course, cgpa, credit = list_box_courses[i].split(" || ")
+            elif len(list_box_courses[i].split(" || ")) == 4:
+                temp = list_box_courses[i].split(" || ")
+                course = temp[0]
+                cgpa = temp[1]
+                credit = temp[2]
+            denominator_number_of_credit += int(credit)
+            numerator += (float(cgpa) * int(credit))
+            grade = grade + f"{course} || {cgpa}\n"
+    grade = grade + "--------------------------------------------------\n"
+    cg = numerator / denominator_number_of_credit
+    grade = grade + f"Your current CGPA:- {cg}\n"
+    grade = grade + f"Total Completed Credit:- {denominator_number_of_credit}"
+    return grade
+
+
+def calculating_cgpa(list_box_courses):
+    # print(list_box_courses)
+    if len(list_box_courses) == 0:
+        return calculating_cgpa_for_all_course()
+    else:
+        return calculating_cgpa_selected_course(list_box_courses)
 
 
 def editing_a_course_or_its_cgpa(course_prev, course_name_update, cgpa_update, credit_of_that_course_combo):
