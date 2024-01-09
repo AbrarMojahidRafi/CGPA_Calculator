@@ -4,7 +4,7 @@ import os
 
 if not os.path.exists("todos.txt"):
     with open("courses.txt", "w") as file:
-        file.write("COURSE || CGPA\n")
+        file.write("COURSE || CGPA || CREDIT\n")
 
 sg.theme("DarkGreen5")
 

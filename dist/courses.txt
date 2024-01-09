@@ -1,0 +1,3 @@
+COURSE || CGPA || CREDIT
+CSE110 || 4.0 || 3
+MAT110 || 4.0 || 3
